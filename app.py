@@ -7,7 +7,10 @@ from spotipy.oauth2 import SpotifyOAuth
 
 """
 Option 1:
-Import from yaml file
+Import from yaml file with format:
+    SPOTIPY_CLIENT_ID: 'your-spotify-client-id'
+    SPOTIPY_CLIENT_SECRET: 'your-spotify-client-secret'
+    SPOTIPY_REDIRECT_URI: 'your-app-redirect-url'
 
 Option 2:
 Save the following as Environment variables or import them from another file:
