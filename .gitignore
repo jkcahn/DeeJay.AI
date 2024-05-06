@@ -3,3 +3,4 @@
 
 # configuration files
 *.yml
+*.json

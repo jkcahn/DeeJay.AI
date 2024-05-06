@@ -7,7 +7,7 @@ https://github.com/drshrey/spotify-flask-auth-example/blob/master/main.py
 
 
 """
-import yaml
+import json
 import flask
 import secrets
 
@@ -23,17 +23,17 @@ from Genai_functions import Genai
 
 
 # load secrets and keys
-with open('config.yml', 'r') as f:
-    config = yaml.safe_load(f)
+with open('config.json', 'r') as f:
+    config = json.load(f)
 
-    GOOGLE_API_KEY = config["GOOGLE_API_KEY"]
+    GOOGLE_API_KEY = config.get("GOOGLE_API_KEY")
 
-    SPOTIFY_CLIENT_ID = config["SPOTIFY_CLIENT_ID"]
-    SPOTIFY_CLIENT_SECRET = config["SPOTIFY_CLIENT_SECRET"]
-    SPOTIFY_REDIRECT_URI = config["SPOTIFY_REDIRECT_URI"]
+    SPOTIFY_CLIENT_ID = config.get("SPOTIFY_CLIENT_ID")
+    SPOTIFY_CLIENT_SECRET = config.get("SPOTIFY_CLIENT_SECRET")
+    SPOTIFY_REDIRECT_URI = config.get("SPOTIFY_REDIRECT_URI")
 
-    YOUTUBE_CLIENT_ID = config["YOUTUBE_CLIENT_ID"]
-    YOUTUBE_CLIENT_SECRET = config["YOUTUBE_CLIENT_SECRET"]
+    YOUTUBE_CLIENT_ID = config.get("YOUTUBE_CLIENT_ID")
+    YOUTUBE_CLIENT_SECRET = config.get("YOUTUBE_CLIENT_SECRET")
 
 
 gg = Genai(GOOGLE_API_KEY=GOOGLE_API_KEY)
@@ -70,13 +70,10 @@ def credentials_to_dict(credentials):
             'scopes': credentials.scopes}
 
 
-def print_index_table():
-    return flask.render_template('index.html')
-
-
 """--------------------------------HOMEPAGE--------------------------------"""
 @app.route('/')
-def main():
+@app.route('/index')
+def index():
     return flask.render_template('index.html')
 
 
@@ -235,12 +232,12 @@ def sp_test_api_request():
 """
 running locally
 """
-# if __name__ == '__main__':
-#     # When running locally, disable OAuthlib's HTTPs verification.
-#     # ACTION ITEM for developers:
-#     #     When running in production *do not* leave this option enabled.
-#     # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+if __name__ == '__main__':
+    # When running locally, disable OAuthlib's HTTPs verification.
+    # ACTION ITEM for developers:
+    #     When running in production *do not* leave this option enabled.
+    # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-#     # Specify a hostname and port that are set as a valid redirect URI
-#     # for your API project in the Google API Console.
-#     app.run('localhost', 8080, debug=True)
+    # Specify a hostname and port that are set as a valid redirect URI
+    # for your API project in the Google API Console.
+    app.run('localhost', 8080, debug=True)
