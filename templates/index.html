@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>dj ai</title>
+    </head>
+    <body>
+        {% extends "base.html" %}
+        {% block content %}
+
+        <a href="/yt-test">Test Youtube API</a>
+        <p>testing the youtube api</p>
+
+        <a hreft="/sp-test">Test Spotify API</a>
+        <p>testing the spotify api</p>
+
+        <p>
+            <script type="text/javascript">
+                if ("{{error}}") {
+                  alert("{{error}} Please try again.")
+                }
+            </script>
+        </p>
+
+        {% endblock %}
+    </body>
+</html>
