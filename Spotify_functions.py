@@ -7,7 +7,7 @@ class Spotify_Playlist_Creator:
         self.sp = spotipy.Spotify(auth_manager=auth_manager)
         
     
-    def create_playlist(self, playlist_name='test'):
+    def create_playlist(self, playlist_name):
         user_id = self.sp.current_user()['id']
         playlist_list = [p['name'] for p in self.sp.current_user_playlists()['items']]
 

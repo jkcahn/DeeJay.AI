@@ -10,6 +10,7 @@ https://github.com/drshrey/spotify-flask-auth-example/blob/master/main.py
 import json
 import flask
 import secrets
+import os
 
 import google_auth_oauthlib.flow as gflow# import InstalledAppFlow
 import google.oauth2.credentials as gcred
@@ -36,15 +37,12 @@ with open('config.json', 'r') as f:
     YOUTUBE_CLIENT_SECRET = config.get("YOUTUBE_CLIENT_SECRET")
 
 
-gg = Genai(GOOGLE_API_KEY=GOOGLE_API_KEY)
-songlist = gg.playlist_request()
-
 
 YT_CONFIG = {
     "installed": {
         "client_id": YOUTUBE_CLIENT_ID,
         "client_secret": YOUTUBE_CLIENT_SECRET,
-        "redirect_uris": ["urn:ietf:wg:oauth:2.0:oob"],
+        "redirect_uris": ["http://localhost:8080/yt-callback", "https://djai-411603.uc.r.appspot.com/yt-callback"],
         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
         "token_uri": "https://accounts.google.com/o/oauth2/token"
     }
@@ -52,13 +50,13 @@ YT_CONFIG = {
 
 # This OAuth 2.0 access scope allows for full read/write access to the
 # authenticated user's account and requires requests to use an SSL connection.
-GOOGLE_SCOPES = ['https://www.googleapis.com/auth/youtube']
+GOOGLE_SCOPES = ['https://www.googleapis.com/auth/youtube', 'https://www.googleapis.com/auth/youtube.force-ssl']
 SPOTIFY_SCOPE = 'playlist-modify-public'
 
 
 app = flask.Flask(__name__)
 app.secret_key = secrets.token_hex()
-
+gg = Genai(GOOGLE_API_KEY=GOOGLE_API_KEY)
 
 """--------------------------------FLASK FUNCTIONS--------------------------------"""
 def credentials_to_dict(credentials):
@@ -72,9 +70,31 @@ def credentials_to_dict(credentials):
 
 """--------------------------------HOMEPAGE--------------------------------"""
 @app.route('/')
-@app.route('/index')
 def index():
     return flask.render_template('index.html')
+
+@app.route('/process', methods=['GET', 'POST'])
+def process():
+    if flask.request.method == "POST":
+        flask.session['playlist_name'] = flask.request.form.get('playlist_name')
+        playlist_input = flask.request.form.get('input')
+
+        songlist = gg.playlist_request(playlist_input=playlist_input)
+        if not songlist:
+            return flask.render_template('index.html', error="Input not accepted")
+        
+        flask.session['songlist'] = songlist
+        
+        return flask.render_template('index.html', song_results=songlist)
+    else:
+        return flask.render_template('index.html')
+
+@app.route('/clear')
+def clear():
+    flask.session.pop('playlist_name')
+    flask.session.pop('songlist')
+    
+    return flask.redirect(flask.url_for('index'))
 
 
 """--------------------------------SP AUTH--------------------------------"""
@@ -185,6 +205,19 @@ def yt_callback():
 
 @app.route('/yt-test')
 def yt_test_api_request():
+    # check if songlist has been generated
+    if 'songlist' not in flask.session:
+        return flask.render_template('index.html', error="Please offer input to generate a playlist")
+    else:
+        songlist = flask.session['songlist']
+    
+    # check if user has input playlist name
+    if 'playlist_name' not in flask.session:
+        return flask.render_template('index.html', error="Please specify playlist name")
+    else:
+        playlist_name = flask.session['playlist_name']
+    
+    
     if 'yt_credentials' not in flask.session:
         return flask.redirect('yt-authorize')
 
@@ -193,7 +226,7 @@ def yt_test_api_request():
         **flask.session['yt_credentials'])
     
     youtube = YouTube_Playlist_Creator(credentials=yt_credentials)
-    playlist_url = youtube.create_playlist()
+    playlist_url = youtube.create_playlist(playlist_name=playlist_name)
     youtube.add_songs(songlist=songlist)
 
     # Save credentials back to session in case access token was refreshed.
@@ -207,6 +240,18 @@ def yt_test_api_request():
 
 @app.route('/sp-test')
 def sp_test_api_request():
+    # check if songlist has been generated
+    if 'songlist' not in flask.session:
+        return flask.render_template('index.html', error="Please offer input to generate a playlist")
+    else:
+        songlist = flask.session['songlist']
+    
+    # check if user has input playlist name
+    if 'playlist_name' not in flask.session:
+        return flask.render_template('index.html', error="Please specify playlist name")
+    else:
+        playlist_name = flask.session['playlist_name']
+    
     cache_handler = spotipy.cache_handler.FlaskSessionCacheHandler(flask.session)
     auth_manager = SpotifyOAuth(
         client_id=SPOTIFY_CLIENT_ID,
@@ -221,7 +266,7 @@ def sp_test_api_request():
         return flask.redirect('sp-authorize')
     
     sp = Spotify_Playlist_Creator(auth_manager=auth_manager)
-    playlist_url = sp.create_playlist()
+    playlist_url = sp.create_playlist(playlist_name=playlist_name)
     sp.add_songs(songlist=songlist)
     
     

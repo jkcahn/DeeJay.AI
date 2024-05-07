@@ -12,11 +12,11 @@ class YouTube_Playlist_Creator:
             API_SERVICE_NAME, API_VERSION, credentials=credentials)
         self.youtube = build
     
-    def create_playlist(self):
+    def create_playlist(self, playlist_name ):
         playlist_create_body = dict(
             snippet=dict(
-                title="test playlist",
-                description="test description"
+                title=playlist_name,
+                description="Generated from djai"
             ),
             status=dict(
                 privacyStatus='private'

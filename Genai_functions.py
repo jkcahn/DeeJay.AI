@@ -39,17 +39,19 @@ class Genai:
                                     generation_config=generation_config,
                                     safety_settings=safety_settings)
     
-    def playlist_request(self):
+    def playlist_request(self, playlist_input):
+        if not playlist_input:
+            return (None, None)
+        
         prompt_parts = [
-        "Can you make a playlist for reading a book on the couch on a rainy day? \
-        Limit it to 2 songs and format it like this:\
+        playlist_input + \
+        "Limit it to 2 songs and format it like this:\
         1. (Song title) - (Artist name) \
         2. (Song title) - (Artist name) \
         *",
         ]
 
         response = self.model.generate_content(prompt_parts)
-        # print(response.text)
 
         # Formatting response
         response_list = response.text.strip().split('\n')

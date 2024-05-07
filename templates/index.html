@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 
+<!-- https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda -->
+
 <html>
     <head>
         <title>dj ai</title>
@@ -8,20 +10,67 @@
         {% extends "base.html" %}
         {% block content %}
 
-        <a href="/yt-test">Test Youtube API</a>
-        <p>testing the youtube api</p>
 
-        <a href="/sp-test">Test Spotify API</a>
-        <p>testing the spotify api</p>
+        <div class="login-box">
+            <h2>Playlist Generator</h2>
+            <form action="/process" method="POST">
+                <div class="user-box">
+                    <input type="text" id="playlist_name" name="playlist_name">
+                    <label>Playlist name</label>
+                </div>
+                <div class="user-box">
+                    <input type="text" id="input" name="input">
+                    <label>Input</label>
+                </div>
+                <button type="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Generate Playlist
+                </button>
+                
+                {% if song_results %}
+                <ol>
+                    {% for song in song_results %}
+                    <li>{{ song }}</li>
 
-        <p>
+                    {% endfor %}
+                </ol>
+
+                {% endif %}
+
+                <a href="/clear">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Clear
+                </a>
+
+                <div>
+                    <a href="/yt-test" class="youtube">Test Youtube API</a>
+                    <p>testing the youtube api</p>
+                </div>
+                <div>
+                    <a href="/sp-test" class="spotify">Test Spotify API</a>
+                    <p>testing the spotify api</p>
+                </div>
+
+            </form>
+        </div>
+        
+        <div>
             <script type="text/javascript">
                 if ("{{error}}") {
                   alert("{{error}} Please try again.")
                 }
             </script>
-        </p>
+        </div>
 
         {% endblock %}
     </body>
 </html>
+
+
+
