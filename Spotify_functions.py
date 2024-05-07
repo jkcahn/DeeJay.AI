@@ -17,7 +17,7 @@ class Spotify_Playlist_Creator:
                 name=playlist_name, 
                 public=True, 
                 collaborative=False, 
-                description="this is a test"
+                description="Made from djai"
             )
         else:
             return None
@@ -39,9 +39,6 @@ class Spotify_Playlist_Creator:
         items = results['tracks']['items'][0]
 
         # track info
-        track_name = items['name']
-        artist = items['artists'][0]['name']
-        track_id = items['id']
         uri = items['uri']
         
         return uri

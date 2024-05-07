@@ -69,17 +69,14 @@ def credentials_to_dict(credentials):
 
 
 """--------------------------------HOMEPAGE--------------------------------"""
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return flask.render_template('index.html')
-
-@app.route('/process', methods=['GET', 'POST'])
-def process():
     if flask.request.method == "POST":
         flask.session['playlist_name'] = flask.request.form.get('playlist_name')
         playlist_input = flask.request.form.get('input')
+        num_songs = flask.request.form.get('song_counter')
 
-        songlist = gg.playlist_request(playlist_input=playlist_input)
+        songlist = gg.playlist_request(playlist_input=playlist_input, num_songs=num_songs)
         if not songlist:
             return flask.render_template('index.html', error="Input not accepted")
         

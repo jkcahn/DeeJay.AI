@@ -42,15 +42,39 @@ body {
     color: #fff;
 }
 
+
 .login-box p {
     padding: 0;
     color: #fff;
 }
-  
+
+.login-box .container {
+    text-align: center;
+}
+
+.login-box .counter input {
+    text-align: center;
+    width: 25%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #000000;
+    outline: none;
+    background: #ffffffe7;
+}
+.login-box .counter label {
+    text-align: center;
+    top:0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+
 .login-box .user-box {
     position: relative;
 }
-  
+
 .login-box .user-box input {
     width: 100%;
     padding: 10px 0;
@@ -80,7 +104,9 @@ body {
     color: #03e9f4;
     font-size: 12px;
 }
-  
+
+
+
 .login-box form a {
     position: relative;
     display: inline-block;
@@ -94,7 +120,7 @@ body {
     margin-top: 40px;
     letter-spacing: 4px
 }
-  
+
 .login-box a:hover {
     background: #03e9f4;
     color: #fff;
@@ -184,3 +210,19 @@ body {
                 0 0 15px #03e9f4,
                 0 0 20px #03e9f4;
 }
+
+/* 
+.loader{
+    height: 100px;
+    text-align: left;
+    display: none;
+    position: relative;
+}
+  
+
+Set the color of the icon
+
+svg path,
+svg rect{
+    fill: #fff;
+} */

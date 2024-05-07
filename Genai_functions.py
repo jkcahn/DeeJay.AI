@@ -39,13 +39,13 @@ class Genai:
                                     generation_config=generation_config,
                                     safety_settings=safety_settings)
     
-    def playlist_request(self, playlist_input):
+    def playlist_request(self, playlist_input, num_songs):
         if not playlist_input:
             return (None, None)
         
         prompt_parts = [
         playlist_input + \
-        "Limit it to 2 songs and format it like this:\
+        " Make it " + num_songs + " songs and format it like this:\
         1. (Song title) - (Artist name) \
         2. (Song title) - (Artist name) \
         *",
