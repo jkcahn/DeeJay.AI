@@ -182,6 +182,9 @@ def yt_callback():
 
     # Specify the state when creating the flow in the callback so that it can
     # verified in the authorization server response.
+    if "yt_state" not in flask.session:
+        return flask.render_template('index.html', error="State unavailable. Retry Youtube")
+    
     yt_state = flask.session['yt_state']
 
     flow = gflow.InstalledAppFlow.from_client_config(client_config=YT_CONFIG, scopes=GOOGLE_SCOPES, state=yt_state)
