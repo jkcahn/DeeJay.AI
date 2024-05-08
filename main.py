@@ -73,23 +73,56 @@ def credentials_to_dict(credentials):
 def index():
     if flask.request.method == "POST":
         flask.session['playlist_name'] = flask.request.form.get('playlist_name')
-        playlist_input = flask.request.form.get('input')
-        num_songs = flask.request.form.get('song_counter')
+        flask.session['playlist_input'] = flask.request.form.get('input')
+        flask.session['num_songs'] = flask.request.form.get('song_counter')
+        
+        return flask.redirect('loading')
+    else:
+        if 'songlist' in flask.session:
+            songlist = flask.session['songlist']
+
+            return flask.render_template('index.html', 
+                                  song_results=songlist,
+                                  returnMessage="Here is your playlist!"
+            )
+        else:
+            return flask.render_template('index.html')
+
+@app.route('/loading')
+def loading():
+    return flask.render_template('loading.html')
+
+@app.route('/process')
+def process():
+    # minimum time delay for loading animation
+    import time
+    start_time = time.time()
+    
+    if 'playlist_input' in flask.session and 'num_songs' in flask.session:
+        playlist_input = flask.session['playlist_input']
+        num_songs = flask.session['num_songs']
 
         songlist = gg.playlist_request(playlist_input=playlist_input, num_songs=num_songs)
         if not songlist:
             return flask.render_template('index.html', error="Input not accepted")
         
         flask.session['songlist'] = songlist
-        
-        return flask.render_template('index.html', song_results=songlist)
-    else:
-        return flask.render_template('index.html')
+    
+    elapsed_time = time.time() - start_time
+    
+    # calculate remaining time to meet minimum delay
+    remaining_delay = max(0, 3 - elapsed_time)
+    if remaining_delay > 0:
+        time.sleep(remaining_delay)
+    
+    return flask.redirect(flask.url_for('index'))
 
 @app.route('/clear')
 def clear():
-    flask.session.pop('playlist_name')
-    flask.session.pop('songlist')
+    if 'playlist_name' in flask.session:
+        flask.session.pop('playlist_name')
+    if 'songlist' in flask.session:
+        flask.session.pop('songlist')
     
     return flask.redirect(flask.url_for('index'))
 

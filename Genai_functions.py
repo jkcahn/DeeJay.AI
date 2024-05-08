@@ -41,14 +41,13 @@ class Genai:
     
     def playlist_request(self, playlist_input, num_songs):
         if not playlist_input:
-            return (None, None)
+            return None
         
         prompt_parts = [
-        playlist_input + \
-        " Make it " + num_songs + " songs and format it like this:\
-        1. (Song title) - (Artist name) \
-        2. (Song title) - (Artist name) \
-        *",
+            playlist_input + " Make it " + num_songs + " songs and format it like this:\
+            1. (Song title) - (Artist name) \
+            2. (Song title) - (Artist name) \
+            *",
         ]
 
         response = self.model.generate_content(prompt_parts)

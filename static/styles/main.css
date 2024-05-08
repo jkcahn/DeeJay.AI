@@ -52,6 +52,13 @@ body {
     text-align: center;
 }
 
+.login-box .container #responseMessage {
+    display: inline;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+}
+
 .login-box .counter input {
     text-align: center;
     width: 25%;
@@ -211,18 +218,17 @@ body {
                 0 0 20px #03e9f4;
 }
 
-/* 
+
 .loader{
     height: 100px;
-    text-align: left;
-    display: none;
+    text-align: center;
+    display: inline;
     position: relative;
 }
   
 
-Set the color of the icon
-
+/* Set the color of the icon */
 svg path,
 svg rect{
     fill: #fff;
-} */
+}
