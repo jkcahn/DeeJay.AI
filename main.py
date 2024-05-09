@@ -25,17 +25,27 @@ from Genai_functions import Genai
 
 
 # load secrets and keys
-with open('config.json', 'r') as f:
-    config = json.load(f)
+if os.path.isfile('config.json'):
+    with open('config.json', 'r') as f:
+        config = json.load(f)
 
-    GOOGLE_API_KEY = config.get("GOOGLE_API_KEY")
+        GOOGLE_API_KEY = config.get("GOOGLE_API_KEY")
 
-    SPOTIFY_CLIENT_ID = config.get("SPOTIFY_CLIENT_ID")
-    SPOTIFY_CLIENT_SECRET = config.get("SPOTIFY_CLIENT_SECRET")
-    SPOTIFY_REDIRECT_URI = config.get("SPOTIFY_REDIRECT_URI")
+        SPOTIFY_CLIENT_ID = config.get("SPOTIFY_CLIENT_ID")
+        SPOTIFY_CLIENT_SECRET = config.get("SPOTIFY_CLIENT_SECRET")
+        SPOTIFY_REDIRECT_URI = config.get("SPOTIFY_REDIRECT_URI")
 
-    YOUTUBE_CLIENT_ID = config.get("YOUTUBE_CLIENT_ID")
-    YOUTUBE_CLIENT_SECRET = config.get("YOUTUBE_CLIENT_SECRET")
+        YOUTUBE_CLIENT_ID = config.get("YOUTUBE_CLIENT_ID")
+        YOUTUBE_CLIENT_SECRET = config.get("YOUTUBE_CLIENT_SECRET")
+else:
+    GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
+
+    SPOTIFY_CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
+    SPOTIFY_CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
+    SPOTIFY_REDIRECT_URI = os.environ.get("SPOTIFY_REDIRECT_URI")
+
+    YOUTUBE_CLIENT_ID = os.environ.get("YOUTUBE_CLIENT_ID")
+    YOUTUBE_CLIENT_SECRET = os.environ.get("YOUTUBE_CLIENT_SECRET")
 
 
 
