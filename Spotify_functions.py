@@ -11,16 +11,14 @@ class Spotify_Playlist_Creator:
         user_id = self.sp.current_user()['id']
         playlist_list = [p['name'] for p in self.sp.current_user_playlists()['items']]
 
-        if playlist_name not in playlist_list:
-            new_playlist = self.sp.user_playlist_create(
-                user=user_id, 
-                name=playlist_name, 
-                public=True, 
-                collaborative=False, 
-                description="Made from djai"
-            )
-        else:
-            return None
+        
+        new_playlist = self.sp.user_playlist_create(
+            user=user_id, 
+            name=playlist_name, 
+            public=True, 
+            collaborative=False, 
+            description="Made from djai"
+        )
         
         self.playlist_id = new_playlist['id']
         

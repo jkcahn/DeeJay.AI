@@ -4,9 +4,9 @@
 
 <html>
     <head>
-        <title>dj ai</title>
+        <title>dj.ai</title>
 
-        <script src="/static/js/generate.js"></script>
+        <script src="/static/js/loading.js"></script>
     </head>
     <body>
         {% extends "base.html" %}
@@ -21,7 +21,7 @@
                     <label>Playlist name</label>
                 </div>
                 <div>
-                    <p>Example input: Make me a playlist that feels like sitting by a cozy fire</p>
+                    <p style="color: grey">Example input: Make me a playlist that feels like sitting by a cozy fire</p>
                 </div>
                 <div class="user-box">
                     <input type="text" id="input" name="input" required="">
@@ -68,12 +68,16 @@
                 </div>
                 
                 <div class="container">
-                    <a href="/yt-test" class="youtube">YouTube</a>
-                    <p>Click to create a playlist in YouTube</p>
+                    <a href="/youtube" class="youtube">YouTube</a>
+                    {% if yt_playlist_url %}
+                    <p>Click <a href="{{yt_playlist_url}}" class="link">here</a> for your new playlist</p>
+                    {% endif %}
                 </div>
                 <div class="container">
-                    <a href="/sp-test" class="spotify">Spotify</a>
-                    <p>Click to create a playlist in Spotify</p>
+                    <a href="/spotify" class="spotify">Spotify</a>
+                    {% if sp_playlist_url %}
+                    <p>Click <a href="{{sp_playlist_url}}" class="link">here</a> for your new playlist</p>
+                    {% endif %}
                 </div>
 
             </form>

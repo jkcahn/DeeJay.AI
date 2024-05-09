@@ -5,17 +5,23 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <title>Flask Parent Template</title>
+        <title>Base Template</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
     </head>
 
     <body>
-        <header>
-            <div class="container">
-                <h1 class="logo">DJ Web App</h1>
+        <div class="container">
+            <div class="Title">
+                <a href="/" style="text-decoration: none;">
+                    <h1>DeeJay.AI
+                        <div class="highlight"></div>
+                    </h1>
+                </a>
+                <div class="underline"></div>
+                <!-- <div aria-hidden class="filled">DeeJay.AI</div> -->
             </div>
-        </header>
-        
+        </div>
+
         {% block content %}
         {% endblock %}
         

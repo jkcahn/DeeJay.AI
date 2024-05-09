@@ -6,9 +6,9 @@
     <head>
         <title>dj ai</title>
 
-        <script src="/static/js/generate.js"></script>
+        <script src="/static/js/loading.js"></script>
     </head>
-    <body>
+    <body onload="delayedRedirect()">
         {% extends "base.html" %}
         {% block content %}
 
@@ -21,7 +21,7 @@
                     <label>Playlist name</label>
                 </div>
                 <div>
-                    <p>Example input: Make me a playlist that feels like sitting by a cozy fire</p>
+                    <p style="color: grey">Example input: Make me a playlist that feels like sitting by a cozy fire</p>
                 </div>
                 <div class="user-box">
                     <input type="text" id="input" name="input" required="">
@@ -82,11 +82,9 @@
                 
                 <div class="container">
                     <a href="/yt-test" class="youtube">YouTube</a>
-                    <p>Click to create a playlist in YouTube</p>
                 </div>
                 <div class="container">
                     <a href="/sp-test" class="spotify">Spotify</a>
-                    <p>Click to create a playlist in Spotify</p>
                 </div>
 
             </form>
@@ -99,9 +97,6 @@
                 }
             </script>
         </div>
-
-        
-        <script> setTimeout(window.location.href = '/process', 2000) ; </script>
         {% endblock %}
     </body>
 </html>

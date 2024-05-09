@@ -93,11 +93,7 @@ def loading():
     return flask.render_template('loading.html')
 
 @app.route('/process')
-def process():
-    # minimum time delay for loading animation
-    import time
-    start_time = time.time()
-    
+def process():    
     if 'playlist_input' in flask.session and 'num_songs' in flask.session:
         playlist_input = flask.session['playlist_input']
         num_songs = flask.session['num_songs']
@@ -107,13 +103,6 @@ def process():
             return flask.render_template('index.html', error="Input not accepted")
         
         flask.session['songlist'] = songlist
-    
-    elapsed_time = time.time() - start_time
-    
-    # calculate remaining time to meet minimum delay
-    remaining_delay = max(0, 3 - elapsed_time)
-    if remaining_delay > 0:
-        time.sleep(remaining_delay)
     
     return flask.redirect(flask.url_for('index'))
 
@@ -178,7 +167,7 @@ def callback():
         return flask.render_template('index.html', error='Auth failed. ')
     
     
-    return flask.redirect(flask.url_for('sp_test_api_request'))
+    return flask.redirect(flask.url_for('sp_request'))
 
 """--------------------------------YT AUTH--------------------------------"""
 """
@@ -230,14 +219,14 @@ def yt_callback():
     yt_credentials = flow.credentials
     flask.session['yt_credentials'] = credentials_to_dict(yt_credentials)
 
-    return flask.redirect(flask.url_for('yt_test_api_request'))
+    return flask.redirect(flask.url_for('yt_request'))
 
 
 
 """--------------------------------API REQUEST--------------------------------"""
 
-@app.route('/yt-test')
-def yt_test_api_request():
+@app.route('/youtube')
+def yt_request():
     # check if songlist has been generated
     if 'songlist' not in flask.session:
         return flask.render_template('index.html', error="Please offer input to generate a playlist")
@@ -259,7 +248,7 @@ def yt_test_api_request():
         **flask.session['yt_credentials'])
     
     youtube = YouTube_Playlist_Creator(credentials=yt_credentials)
-    playlist_url = youtube.create_playlist(playlist_name=playlist_name)
+    yt_playlist_url = youtube.create_playlist(playlist_name=playlist_name)
     youtube.add_songs(songlist=songlist)
 
     # Save credentials back to session in case access token was refreshed.
@@ -267,12 +256,16 @@ def yt_test_api_request():
     #              credentials in a persistent database instead.
     flask.session['yt_credentials'] = credentials_to_dict(yt_credentials)
 
-    return flask.render_template('success_test.html', playlist_url=playlist_url)
+    return flask.render_template(
+        'index.html',
+        song_results=songlist,
+        yt_playlist_url=yt_playlist_url
+    )
 
 
 
-@app.route('/sp-test')
-def sp_test_api_request():
+@app.route('/spotify')
+def sp_request():
     # check if songlist has been generated
     if 'songlist' not in flask.session:
         return flask.render_template('index.html', error="Please offer input to generate a playlist")
@@ -299,12 +292,14 @@ def sp_test_api_request():
         return flask.redirect('sp-authorize')
     
     sp = Spotify_Playlist_Creator(auth_manager=auth_manager)
-    playlist_url = sp.create_playlist(playlist_name=playlist_name)
+    sp_playlist_url = sp.create_playlist(playlist_name=playlist_name)
     sp.add_songs(songlist=songlist)
     
-    
-    return flask.render_template('success_test.html', playlist_url=playlist_url)
-
+    return flask.render_template(
+        'index.html',
+        songs_results=songlist,
+        sp_playlist_url=sp_playlist_url
+    )
 
 
 """
@@ -314,7 +309,7 @@ if __name__ == '__main__':
     # When running locally, disable OAuthlib's HTTPs verification.
     # ACTION ITEM for developers:
     #     When running in production *do not* leave this option enabled.
-    # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
     # Specify a hostname and port that are set as a valid redirect URI
     # for your API project in the Google API Console.
