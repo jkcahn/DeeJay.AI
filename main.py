@@ -298,7 +298,7 @@ def sp_request():
     
     return flask.render_template(
         'index.html',
-        songs_results=songlist,
+        song_results=songlist,
         sp_playlist_url=sp_playlist_url
     )
 
