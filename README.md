@@ -11,10 +11,10 @@ Deploying to a local server:
 4. Start the web app by running the main.py python script. 
 
 Deploying to Google Cloud Platform:
-* To deploy a new instance of the appliation:
+1. To deploy a new instance of the appliation:
     1. Deploy with `gcloud app deploy {path to project}`
     2. Delete old instance using Google Cloud console
-* To check out the latest deployment:
+1. To check out the latest deployment:
     1. Browse with `gcloud app browse`
-    
+
     *Note: Other users must be added as testers to the Google Cloud project in order to use the YouTube Data API features. 
