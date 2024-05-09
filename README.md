@@ -12,8 +12,10 @@ Deploying to a local server:
 
 Deploying to Google Cloud Platform:
 1. To deploy a new instance of the appliation:
-   i. Deploy with `gcloud app deploy {path to project}`
-   ii. Delete old instance using Google Cloud console
+
+    i. Deploy with `gcloud app deploy {path to project}`
+    ii. Delete old instance using Google Cloud console
 2. To check out the latest deployment:
-   i. Browse with `gcloud app browse`
-   *Note: Other users must be added as testers to the Google Cloud project in order to use the YouTube Data API features. 
+
+    i. Browse with `gcloud app browse`
+    *Note: Other users must be added as testers to the Google Cloud project in order to use the YouTube Data API features. 
