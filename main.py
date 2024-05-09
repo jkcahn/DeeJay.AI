@@ -12,6 +12,8 @@ import flask
 import secrets
 import os
 
+from pyngrok import ngrok
+
 import google_auth_oauthlib.flow as gflow# import InstalledAppFlow
 import google.oauth2.credentials as gcred
 import spotipy
@@ -309,8 +311,13 @@ if __name__ == '__main__':
     # When running locally, disable OAuthlib's HTTPs verification.
     # ACTION ITEM for developers:
     #     When running in production *do not* leave this option enabled.
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    # os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
     # Specify a hostname and port that are set as a valid redirect URI
     # for your API project in the Google API Console.
+    
+    # # run local server through pyngrok
+    # ngrok_tunnel = ngrok.connect(8080)
+    # print('Public URL: ', ngrok_tunnel.public_url)
+    
     app.run('localhost', 8080, debug=True)
