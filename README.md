@@ -1,6 +1,6 @@
 # DeeJay.AI
 
-This is a Flask based web application that combines Google's Generative AI, the YouTube Data API, and the Spotify API to create uniquely customized playlsits for any occasion. Just as one would prompt any GPT model, the user can specify a name and description for the desired playlist. For example, "Give me a playlist for a sunny day", or "Make me a playlist that feels like jogging in New York with some light rain". Essentially, the user can ask for a playlist based on mood, color, imagery, etc.; anything the user can imagine. 
+This is a Flask based web application that combines Google's Generative AI, the YouTube Data API, and the Spotify API to create uniquely customized playlists for any occasion. Just as one would prompt any GPT model, the user can specify a name and description for the desired playlist. For example, "Give me a playlist for a sunny day", or "Make me a playlist that feels like jogging in New York with some light rain". Essentially, the user can ask for a playlist based on mood, color, imagery, etc.; anything the user can imagine. 
 
 Current Deployment Options:
 
