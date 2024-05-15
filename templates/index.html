@@ -4,6 +4,323 @@
 
 <html>
     <head>
+
+        <style>
+            /* https://codepen.io/soufiane-khalfaoui-hassani/pen/LYpPWda */
+
+
+            html {
+                height: 100%;
+            }
+            body {
+                font-family: sans-serif;
+                background: linear-gradient(#141e30, #243b55);
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: flex;
+            }
+
+            /* https://codepen.io/JFarrow/pen/wvoRObL */
+
+            .container {
+                margin: 20px auto 0;
+            }
+
+            .Title {
+                font-family: sans-serif;
+                color: white;
+                cursor: pointer;
+                position: relative;
+
+                h1 {
+                    position: relative;
+                    margin: 0;
+                    padding: 0;
+                    overflow: hidden;
+                    text-transform: uppercase;
+                    font-size: 6em;
+                    -webkit-text-stroke: 1px white;
+                    -webkit-text-fill-color: rgba(255, 255, 255, 0);
+                }
+
+                & .underline {
+                    position: absolute;
+                    width: 100%;
+                    left: 0;
+                    top: -0.1em;
+                    height: 3px;
+                    background-color: #03e9f4;
+                    z-index: 5;
+                    transition: transform 580ms cubic-bezier(0.2, 0.1, 0.15, 1.32);
+                }
+
+                & .highlight {
+                    position: absolute;
+                    width: 100%;
+                    bottom: -50;
+                    left: 0;
+                    height: 50px;
+                    background-color: #6ff8ff;
+                    z-index: -1;
+                    transition: transform 400ms ease;
+                }
+
+            }
+
+            .Title:hover {
+                .underline {
+                    transform: translateY(7em);
+                }
+                .highlight {
+                    transform: translateY(-2em);
+                }
+            }
+
+            
+            .login-box {
+                position: absolute;
+                top: 55%;
+                left: 50%;
+                width: 80%;
+                padding: 7% 10% 10% 10%;
+                transform: translate(-50%, -50%);
+                background: rgba(0,0,0,.5);
+                box-sizing: border-box;
+                box-shadow: 0 15px 25px rgba(0,0,0,.9);
+                border-radius: 5px;
+            }
+            
+            .login-box h2 {
+                margin: 0 0 50px;
+                padding: 0;
+                color: #fff;
+                text-align: center;
+                font-size: 3.5em;
+            }
+
+            .login-box li {
+                padding: 0;
+                color: #fff;
+            }
+
+
+            .login-box p {
+                padding: 0;
+                color: #fff;
+            }
+
+            .login-box .container {
+                text-align: center;
+            }
+
+            .login-box .container #responseMessage {
+                display: inline;
+                text-align: center;
+                font-size: 16px;
+                color: #fff;
+            }
+
+            .login-box .counter input {
+                text-align: center;
+                width: 25%;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #000000;
+                outline: none;
+                background: #ffffffe7;
+            }
+            .login-box .counter label {
+                text-align: center;
+                top:0;
+                left: 0;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #fff;
+            }
+
+
+            .login-box .user-box {
+                position: relative;
+            }
+
+            .login-box .user-box input {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #fff;
+                margin-bottom: 30px;
+                border: none;
+                border-bottom: 1px solid #fff;
+                outline: none;
+                background: transparent;
+            }
+            .login-box .user-box label {
+                position: absolute;
+                top:0;
+                left: 0;
+                padding: 10px 0;
+                font-size: 16px;
+                color: #fff;
+                pointer-events: none;
+                transition: .5s;
+                opacity: 50%;
+            }
+            
+            .login-box .user-box input:focus ~ label,
+            .login-box .user-box input:valid ~ label {
+                top: -20px;
+                left: 0;
+                color: #03e9f4;
+                font-size: 12px;
+            }
+
+
+
+            .login-box form a {
+                position: relative;
+                display: inline-block;
+                padding: 10px 20px;
+                color: #03e9f4;
+                font-size: 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                transition: .5s;
+                margin-top: 40px;
+                letter-spacing: 4px
+            }
+
+            .login-box a:hover {
+                background: #03e9f4;
+                color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #03e9f4,
+                            0 0 10px #03e9f4,
+                            0 0 15px #03e9f4,
+                            0 0 20px #03e9f4;
+            }
+            
+            .login-box a span {
+                position: absolute;
+                display: block;
+            }
+
+            .login-box form a.youtube {
+                position: relative;
+                display: inline-block;
+                padding: 10px 20px;
+                color: #fff;
+                font-size: 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                transition: .5s;
+                margin-top: 40px;
+                letter-spacing: 4px
+            }
+            
+            .login-box a.youtube:hover {
+                background: #f40303e7;
+                color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #f40303e7,
+                            0 0 10px #f40303e7,
+                            0 0 15px #f40303e7,
+                            0 0 20px #f40303e7;
+            }
+
+            .login-box form a.spotify {
+                position: relative;
+                display: inline-block;
+                padding: 10px 20px;
+                color: #fff;
+                font-size: 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                transition: .5s;
+                margin-top: 40px;
+                letter-spacing: 4px
+            }
+            
+            .login-box a.spotify:hover {
+                background: #008000;
+                color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #008000,
+                            0 0 10px #008000,
+                            0 0 15px #008000,
+                            0 0 20px #008000;
+            }
+
+
+            .login-box form a.link {
+                position: relative;
+                display: inline;
+                padding: 0 0;
+                color: #fff;
+                font-size: 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                transition: .5s;
+                letter-spacing: 1px
+            }
+            
+            .login-box a.link:hover {
+                background: #03e9f4;
+                color: #fff;
+                border-radius: 3px;
+                box-shadow: 0 0 5px #03e9f4,
+                            0 0 9px #03e9f4,
+                            0 0 13px #03e9f4,
+                            0 0 17px #03e9f4;
+            }
+
+            .login-box form button {
+                position: relative;
+                display: inline-block;
+                padding: 10px 20px;
+                color: #03e9f4;
+                background: transparent;
+                border: transparent;
+                cursor: pointer;
+                font-size: 16px;
+                text-decoration: none;
+                text-transform: uppercase;
+                overflow: hidden;
+                transition: .5s;
+                margin-top: 40px;
+                letter-spacing: 4px
+            }
+            
+            .login-box button:hover {
+                background: #03e9f4;
+                color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #03e9f4,
+                            0 0 10px #03e9f4,
+                            0 0 15px #03e9f4,
+                            0 0 20px #03e9f4;
+            }
+
+
+            .loader{
+                height: 100px;
+                text-align: center;
+                display: inline;
+                position: relative;
+            }
+            
+
+            /* Set the color of the icon */
+            svg path,
+            svg rect{
+                fill: #fff;
+            }
+
+        </style>
         <title>DeeJay.AI</title>
 
         <script src="/static/js/loading.js"></script>
@@ -20,12 +337,12 @@
                     <input type="text" id="playlist_name" name="playlist_name" required="">
                     <label>Playlist name</label>
                 </div>
-                <div>
-                    <p style="color: grey">Example input: Make me a playlist that feels like sitting by a cozy fire</p>
-                </div>
                 <div class="user-box">
                     <input type="text" id="input" name="input" required="">
                     <label>Input</label>
+                </div>
+                <div>
+                    <p style="color: white">Example input: Make me a playlist that feels like sitting by a cozy fire</p>
                 </div>
                 <div class="counter">
                     <label for="num_songs">

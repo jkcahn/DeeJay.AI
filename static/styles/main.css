@@ -75,7 +75,7 @@ body {
     top: 55%;
     left: 50%;
     width: 80%;
-    padding: 10%;
+    padding: 7% 10% 10% 10%;
     transform: translate(-50%, -50%);
     background: rgba(0,0,0,.5);
     box-sizing: border-box;
@@ -84,11 +84,11 @@ body {
 }
   
 .login-box h2 {
-    margin: 0 0 30px;
+    margin: 0 0 50px;
     padding: 0;
     color: #fff;
     text-align: center;
-    font-size: 5em;
+    font-size: 3.5em;
 }
 
 .login-box li {
@@ -156,6 +156,7 @@ body {
     color: #fff;
     pointer-events: none;
     transition: .5s;
+    opacity: 50%;
 }
   
 .login-box .user-box input:focus ~ label,
