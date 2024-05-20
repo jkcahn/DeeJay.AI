@@ -21,7 +21,6 @@ Deploying to Google Cloud Platform:
 1. To check out the latest deployment:
     1. Browse with `gcloud app browse`
 
-<<<<<<< HEAD
     *Note: Other users must be added as testers to the Google Cloud project in order to use the YouTube Data API features. 
 
 Deploying to Docker Container:
@@ -33,6 +32,3 @@ Deploying to Docker Container:
     3. Run `docker compose watch` (must have latest version of Docker to use compose watch) to deploy to a container
     4. Using `compose watch` will allow the user to make changes locally and have the container update and rebuild automatically
 4. Run `docker compose down` to stop the application
-=======
-    **Note: Other users must be added as testers to the Google Cloud project in order to use the YouTube Data API features. 
->>>>>>> 4606758143607624437a5a53452199ef8bd79c43
