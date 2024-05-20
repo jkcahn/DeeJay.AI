@@ -99,9 +99,14 @@
                 font-size: 3.5em;
             }
 
-            .login-box li {
+            .login-box ul {
+                list-style-type: none;
                 padding: 0;
+            }
+
+            .login-box li {
                 color: #fff;
+                text-align: center;
             }
 
 
@@ -350,7 +355,7 @@
                 </div>
                 <div class="user-box">
                     <input type="text" id="input" name="input" required="">
-                    <label>Example input: Make me a playlist that feels like sitting by a cozy fire</label>
+                    <label>Ex: Make me a playlist that feels like sitting by a cozy fire</label>
                 </div>
                 <div class="counter">
                     <label for="num_songs">
@@ -378,12 +383,12 @@
                 
                 <div class="container">
                     {% if song_results %}
-                    <ol id="songList">
+                    <ul id="songList">
                         {% for song in song_results %}
                         <li>{{ song }}</li>
 
                         {% endfor %}
-                    </ol>
+                    </ul>
 
                     {% endif %}
                 </div>

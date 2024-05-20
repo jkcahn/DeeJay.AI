@@ -18,3 +18,13 @@ Deploying to Google Cloud Platform:
     1. Browse with `gcloud app browse`
 
     *Note: Other users must be added as testers to the Google Cloud project in order to use the YouTube Data API features. 
+
+Deploying to Docker Container:
+1. Clone the repository
+2. Download Docker
+3. Deploy to docker image and container
+    1. Run `docker init` to setup config files
+    2. Make sure Flask app is running in "0.0.0.0" to allow access from localhost
+    3. Run `docker compose watch` (must have latest version of Docker to use compose watch) to deploy to a container
+    4. Using `compose watch` will allow the user to make changes locally and have the container update and rebuild automatically
+4. Run `docker compose down` to stop the application

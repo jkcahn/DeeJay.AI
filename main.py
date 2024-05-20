@@ -319,4 +319,4 @@ if __name__ == '__main__':
     # ngrok_tunnel = ngrok.connect(8080)
     # print('Public URL: ', ngrok_tunnel.public_url)
     
-    app.run('localhost', 8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)
